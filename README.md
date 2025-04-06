@@ -2,7 +2,6 @@
 
 This repo contains my personal configuration files (dotfiles) for setting up a development environment on macOS.
 
-Managed with `git`, symlinked with `stow` (or manually), and regularly overthought.
 
 ## 💻 Contents
 
