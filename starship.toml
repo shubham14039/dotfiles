@@ -1,0 +1,26 @@
+
+format = """
+$env_var\
+$git_branch\
+$directory\
+$character"""
+
+[character]
+success_symbol = '[ ➤](green)'
+error_symbol = '[ ➤](red)'
+
+[env_var.VIRTUAL_ENV]
+format = '[\($env_value\)](bold cyan) '
+variable = "VIRTUAL_ENV"
+disabled = false
+
+[directory]
+style = 'red'
+truncation_length = 4
+truncation_symbol = '…/'
+format = '\[[$path]($style)\]'
+
+[git_branch]
+style = "red"
+symbol = ""
+format = '\[[$symbol $branch]($style)\]'
