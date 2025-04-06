@@ -17,7 +17,7 @@ Includes configs for:
 
 ## 🚀 Installation
 
-> Warning: This is designed for my system. May explode yours. YMMV.
+> Warning: This is designed for my system (MacOs). May explode yours. YMMV.
 
 ```bash
 git clone git@github.com:shubham14039/dotfiles.git ~/dotfiles
