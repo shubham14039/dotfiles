@@ -16,6 +16,7 @@ set hlsearch              " Highlight search results
 set scrolloff=14          " Keep 14 lines above/below cursor when scrolling
 set noshowmode
 set nolist
+set encoding=UTF-8
 
 " New Functionalities
 let mapleader="\<Space>"
@@ -44,13 +45,11 @@ Plug 'junegunn/fzf'               " Fuzzy finder
 Plug 'junegunn/fzf.vim'           " Vim integration
 Plug 'preservim/nerdtree'         " File explorer
 
-" Plugin for riprep
-" Plug 'jremmen/vim-ripgrep'
-
 " Editing Features
 Plug 'jiangmiao/auto-pairs'       " Auto-pair brackets
 Plug 'honza/vim-snippets'         " Snippet support
 Plug 'tpope/vim-commentary'  " Commenting plugin (gcc for line, gc for selection)
+Plug 'tpope/vim-surround' " VIm surround
 
 " Highlight when yanking
 Plug 'machakann/vim-highlightedyank'
@@ -60,7 +59,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'octol/vim-cpp-enhanced-highlight'
 
 " Code Quality
-Plug 'dense-analysis/ale'         " Linter
+Plug 'dense-analysis/ale'         " Linter (Not being used currently)
 call plug#end()
 
 " Leader key keybindings
