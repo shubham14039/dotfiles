@@ -51,6 +51,9 @@ Plug 'honza/vim-snippets'         " Snippet support
 Plug 'tpope/vim-commentary'  " Commenting plugin (gcc for line, gc for selection)
 Plug 'tpope/vim-surround' " VIm surround
 
+" For git and github
+Plug 'tpope/vim-fugitive'
+
 " Highlight when yanking
 Plug 'machakann/vim-highlightedyank'
 
