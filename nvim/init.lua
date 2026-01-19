@@ -351,69 +351,66 @@ require('lazy').setup({
 
       local servers = {
 
-        -- WARN: This is only meant for C++ development. Uncomment if doin' C++
-        -- I do not prefer neovim for C++ development. For C++, java and typescript, i use vim.
-
-        -- clangd = {
-        --   -- on_attach = function(client, bufnr)
-        --   --   local opts = { noremap = true, silent = true, buffer = bufnr }
-        --   --   -- Keybindings for Clangd features
-        --   --   vim.keymap.set('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts) -- Go to definition
-        --   --   vim.keymap.set('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts) -- Show hover info
-        --   --   vim.keymap.set('n', 'gl', '<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts) -- Show diagnostics
-        --   --   vim.keymap.set('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts) -- Find references
-        --   -- end,
-        --   settings = {
-        --     clangd = {
-        --       path = '/opt/homebrew/opt/llvm/bin/clangd',
-        --       -- enable = true, --enable or disable clang entirely
-        --       -- diagnostics = {
-        --       --   -- used for diagnostc purposes
-        --       --   enable = true,
-        --       --   delay = 100, -- Delay diagnostics for this many milliseconds
-        --       --   severity = 'warning', -- Options: "error", "warning", "information", "hint", severity rangin from highest to lowest
-        --       -- },
-        --       -- completion = {
-        --       -- -- for code completion
-        --       --   enable = true, --set to false if not needed
-        --       --   snippets = "inline",  -- Options: "inline", "both", "none"
-        --       --   },
-        --       formatting = {
-        --         -- for formatting style
-        --         enable = true,
-        --         style = 'google', -- Options: "file", "google", "llvm", "mozilla", "chromium"
-        --       },
-        --       -- idle = 10000, -- Set the idle time before Clangd disconnects (in milliseconds). Clangd will not use system resources when work in no tbeing done and still editor is open without.
-        --       -- cache = {
-        --       --   memory_limit = 512,  -- Limit cache size to 512 MB (more than enough for small projects)
-        --       --   clear_interval = 60, -- Clear cache every 60 minutes (you can adjust this based on your preferences)
-        --       --       },
-        --       -- server = {
-        --       -- -- for monitoring and debugging the clangd process
-        --       --   log = "verbose",        -- Set log level to verbose for detailed output. Other options: "error":  This setting reduces the logs to only errors. It will suppress informational and debug messages but will show any critical issues Clangd encounters.
-        --       --   -- And "silent": This minimizes the output even further, showing no log unless there's a serious problem.
-        --       --   pid_file = "~/Desktop/clangd_pid.txt",  -- Write Clangd PID to a specific file
-        --       --       }
-        --     },
-        --   },
-        -- },
+        clangd = {
+          on_attach = function(client, bufnr)
+            local opts = { noremap = true, silent = true, buffer = bufnr }
+            -- Keybindings for Clangd features
+            vim.keymap.set('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts) -- Go to definition
+            vim.keymap.set('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts) -- Show hover info
+            vim.keymap.set('n', 'gl', '<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts) -- Show diagnostics
+            vim.keymap.set('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts) -- Find references
+          end,
+          settings = {
+            clangd = {
+              path = '/opt/homebrew/opt/llvm/bin/clangd',
+              enable = true, --enable or disable clang entirely
+              diagnostics = {
+                -- used for diagnostc purposes
+                enable = true,
+                delay = 100, -- Delay diagnostics for this many milliseconds
+                severity = 'warning', -- Options: "error", "warning", "information", "hint", severity rangin from highest to lowest
+              },
+              completion = {
+              -- for code completion
+                enable = true, --set to false if not needed
+                snippets = "inline",  -- Options: "inline", "both", "none"
+                },
+              formatting = {
+                -- for formatting style
+                enable = true,
+                style = 'google', -- Options: "file", "google", "llvm", "mozilla", "chromium"
+              },
+              idle = 10000, -- Set the idle time before Clangd disconnects (in milliseconds). Clangd will not use system resources when work in no tbeing done and still editor is open without.
+              cache = {
+                memory_limit = 512,  -- Limit cache size to 512 MB (more than enough for small projects)
+                clear_interval = 60, -- Clear cache every 60 minutes (you can adjust this based on your preferences)
+                    },
+              server = {
+              -- for monitoring and debugging the clangd process
+                log = "verbose",        -- Set log level to verbose for detailed output. Other options: "error":  This setting reduces the logs to only errors. It will suppress informational and debug messages but will show any critical issues Clangd encounters.
+                -- And "silent": This minimizes the output even further, showing no log unless there's a serious problem.
+                pid_file = "~/Desktop/clangd_pid.txt",  -- Write Clangd PID to a specific file
+                    }
+            },
+          },
+        },
 
         -- Langauge server for GO.
         -- gopls = {},
 
-        -- Langauge server for python.
-        -- pyright = {
-        --   settings = {
-        --     python = {
-        --       analysis = {
-        --         exclude = { '**/node_modules', '**/__pycache__', '**/build' },
-        --         typeCheckingMode = 'basic',
-        --         autoSearchPaths = true,
-        --         useLibraryCodeForTypes = true,
-        --       },
-        --     },
-        --   },
-        -- },
+        Langauge server for python.
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                exclude = { '**/node_modules', '**/__pycache__', '**/build' },
+                typeCheckingMode = 'basic',
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+              },
+            },
+          },
+        },
 
         -- For Rust.
         -- rust_analyzer = {},

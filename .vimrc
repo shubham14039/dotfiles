@@ -29,6 +29,9 @@ set splitright            " New splits open to the right
 set formatoptions+=c  " Auto-wrap comments using textwidth
 set formatoptions+=q  " Allow formatting of comments with 'gq'
 
+"WHERE TO FIND TAGS
+set tags=./tags;,tags;
+
 " Plugin Installation
 call plug#begin('~/.vim/plugged')
 " For vim kitty
@@ -52,7 +55,7 @@ Plug 'tpope/vim-commentary'  " Commenting plugin (gcc for line, gc for selection
 Plug 'tpope/vim-surround' " VIm surround
 
 " For git and github
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive' TAG: NOTE: Uncomment if want to use git features
 
 " Highlight when yanking
 Plug 'machakann/vim-highlightedyank'
@@ -62,7 +65,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'octol/vim-cpp-enhanced-highlight'
 
 " Code Quality
-Plug 'dense-analysis/ale'         " Linter (Not being used currently)
+" Plug 'dense-analysis/ale'         TAG: NOTE: Linter (Not being used currently)
+Plug 'ryanoasis/vim-devicons' "for file icons in nerdtree
 call plug#end()
 
 " Leader key keybindings
@@ -84,6 +88,51 @@ nnoremap <silent> <Esc> :noh<CR>
 " FIle type syntax highlighting 
 autocmd FileType python highlight link pythonSpaceError Normal
 
+" ==================================
+" Custom TAG Annotations
+" Format: TAG: <TagName>: <text>
+" ==================================
+augroup CustomTagColors
+  autocmd!
+  autocmd ColorScheme * highlight CustomTag ctermfg=DarkCyan guifg=DarkCyan cterm=NONE gui=NONE
+augroup END
+
+augroup CustomTagHighlight
+  autocmd!
+  autocmd BufEnter,BufWinEnter * call s:HighlightTags()
+augroup END
+
+function! s:HighlightTags()
+  if exists('w:custom_tag_match')
+    call matchdelete(w:custom_tag_match)
+  endif
+  let w:custom_tag_match =
+        \ matchadd('CustomTag', '\vTAG:\s*\w+\s*:.*$')
+endfunction
+
+"LIST ALL TAGS IN CURRENT FILE
+command! Tags silent vimgrep /TAG:\s*\w\+\s*:/ % | copen
+
+"JUMP to the first TAG of given kind and activete n/N NAVIGATION // FIXME: Not working
+command! -nargs=1 Tag call s:TagSearch(<q-args>)
+function! s:TagSearch(tag)
+  let l:pat = 'TAG:\s*' . a:tag . '\s*:'
+  let @/ = l:pat
+  call search(l:pat, 'w')
+endfunction
+
+command! -nargs=1 Tag call s:JumpToTag(<q-args>)
+function! s:JumpToTag(tag)
+  let l:pat = '/TAG:\s*' . a:tag . '\s*:'
+  let @/ = l:pat
+  call search(l:pat, 'w')
+endfunction
+
+"PROJECT-WIDE TAG SEARCH (requires ripgrep)
+"Usage: :ProjectTag Perf
+command! -nargs=1 ProjectTag
+  \ cexpr system('rg "TAG:\\s*<args>\\s*:"') | copen
+
 set laststatus=2
 let g:lightline = {
       \ 'colorscheme': 'powerline',
@@ -97,6 +146,16 @@ let g:lightline = {
       \   'readonly': '%{&readonly ? "[RO]" : ""}'
       \ }
 \ }
+
+" TAG: NOTE: Chose whatever language you use in your workflow
+" LANGUAGE SERVER
+" if executable('clangd')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'clangd',
+"         \ 'cmd': ['clangd'],
+"         \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+"         \ })
+" endif
 
 " Highlight timing 
 let g:highlightedyank_highlight_duration = 200
